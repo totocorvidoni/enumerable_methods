@@ -67,19 +67,17 @@ module Enumerable
     true
   end
 
-  def my_count (arg = nil)
+  def my_count(arg = nil)
     count = 0
     if block_given?
-      self.my_each do |x|
+      my_each do |x|
         count += 1 if yield(x) == true
       end
-    elsif arg == nil
-      count = self.length
+    elsif arg.nil?
+      count = length
     else
-      self.my_each do |x|
-        count += 1 if x == arg
-      end
-    end 
+      my_each { |x| count += 1 if arg === x }
+    end
     count
   end
 

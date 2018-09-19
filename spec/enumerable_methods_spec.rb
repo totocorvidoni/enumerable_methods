@@ -94,4 +94,25 @@ describe 'My Enumerable Methods' do
       end
     end
   end
+
+  describe '.my_count does the same thing as .count' do
+    context 'when a block is given' do
+      it 'it returns the number of elements yielding a true value' do
+        expect(ary.my_count { |x| x > 2}).to eq(3)
+        expect(ary.my_count { |x| x.is_a?(Numeric) }).to eql(5)
+      end
+    end
+
+    context 'when given an argument' do
+      it 'returns the number of elements that are equal the argument' do
+        expect(ary_nil.my_count(Numeric)).to eql(5)
+      end
+    end
+
+    context 'when no block or argument given' do
+      it 'returns the amount of elements in object' do
+        expect(ary_nil.my_count).to eql(6)
+      end
+    end
+  end
 end
