@@ -56,7 +56,7 @@ module Enumerable
     false
   end
 
-  def my_none?
+  def my_none?(pattern = nil)
     if block_given?
       my_each { |x| return false if yield(x) == true }
     elsif !pattern.nil?

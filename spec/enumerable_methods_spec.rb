@@ -64,7 +64,7 @@ describe 'My Enumerable Methods' do
       end
     end
 
-    context 'when no block is given' do
+    context 'when no block or argument is given' do
       it 'returns true if at least one of elements of object is neither false or nil' do
         expect(ary_nil.my_any?).to be(true)
       end
@@ -72,6 +72,26 @@ describe 'My Enumerable Methods' do
   end
 
   describe '.my_none does the same thing as .none' do
-    
+    context 'when a block is given' do
+      it 'returns true only if all elements of object returns false' do
+        expect(ary.my_none? { |x| x > 10 }).to be(true)
+      end
+      it 'returns false if any elements of object returns true' do
+        expect(ary.my_none? { |x| x > 3 }).to be(false)
+      end
+    end
+
+    context 'when an argument is given' do
+      it 'returns true only if no element matches the pattern' do
+        expect(ary.my_none?(10)).to be(true)
+        expect(ary.my_none?(2)).to be(false)
+      end
+    end
+
+    context 'when no block or argument is given' do
+      it 'returns true only of none of the collection members are true' do
+        expect(ary.my_none?).to be(false)
+      end
+    end
   end
 end
