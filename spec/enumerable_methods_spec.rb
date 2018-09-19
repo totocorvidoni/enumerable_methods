@@ -143,4 +143,18 @@ describe 'My Enumerable Methods' do
       end
     end
   end
+
+  describe '.my_inject does the same as .inject' do
+    context 'when no initial value is supplied' do
+      it 'uses the first element of object as initial' do
+        expect(ary.my_inject { |memo, x| memo + x}).to eql(15)
+      end
+    end
+
+    context 'when an initial value is supplied' do
+      it 'uses that value as initial' do
+        expect(ary.my_inject(10) { |memo, x| memo + x}).to eq(25)
+      end
+    end
+  end
 end

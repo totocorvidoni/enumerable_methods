@@ -70,9 +70,7 @@ module Enumerable
   def my_count(arg = nil)
     count = 0
     if block_given?
-      my_each do |x|
-        count += 1 if yield(x) == true
-      end
+      my_each { |x| count += 1 if yield(x) == true }
     elsif arg.nil?
       count = length
     else
@@ -93,8 +91,8 @@ module Enumerable
   end
 
   def my_inject(memo = nil)
-    self.my_each do |x|
-      if memo == nil
+    my_each do |x|
+      if memo.nil?
         memo = self[0]
         next
       end
@@ -104,34 +102,6 @@ module Enumerable
   end
 
   def multiply_els
-    self.my_inject { |x, y| x * y}
+    my_inject { |x, y| x * y}
   end
-
 end
-
-arr = ['potato', 'ball', 'carrot', 'disc']
-n_arr = [1, 2, 3, 4, 5, 3]
-hsh = {
-  name: 'Toti',
-  age: 29,
-  skills: 'non existent'
-}
-
-# idx = 0
-# until idx == arr.length
-#   puts arr[idx]
-#   idx += 1
-# end
-# hsh.my_each { |x, y| puts "This item of the array is #{y}"}
-# hsh.each { |x, y| puts "This item of the array is #{x}"}
-# hsh.my_each_with_index { |(k ,v), index| puts "they key is #{k} and value is #{v} and this is the number #{index + 1} item from the list."}
-# arr.my_second_each do |x|
-#   puts "this is #{x}"
-# end
-# arr.each { |x| puts "this is #{x}" }
-# n_arr.my_select { |x| x > 3 }
-# n_arr.my_none? { |x| x > 3 }
-# arr.map { |x| x *2 }
-# n_arr.multiply_els
-# my_proc = Proc.new { |x| x * 2}
-# n_arr.my_map { |x| x * 3 }
