@@ -4,7 +4,7 @@ module Enumerable
     return to_enum(__method__) unless block_given?
     i = 0
     until i == length
-      yield to_a[i]
+      yield self[i]
       i += 1
     end
     self
@@ -14,7 +14,7 @@ module Enumerable
     return to_enum(__method__) unless block_given?
     i = 0
     until i == length
-      yield to_a[i], i
+      yield self[i], i
       i += 1
     end
     self
@@ -81,19 +81,13 @@ module Enumerable
     count
   end
 
-  def my_map(a_proc = nil)
+  def my_map(&block)
+    return to_enum(__method__) unless block_given?
     result = []
     i = 0
-    unless a_proc == nil 
-      until i == self.length
-        result << a_proc.call(self.to_a[i])
-        i += 1
-      end
-    else
-      until i == self.length
-        result << yield(self.to_a[i])
-        i += 1
-      end
+    until i == length
+      result << yield(self[i])
+      i += 1
     end
     result
   end
